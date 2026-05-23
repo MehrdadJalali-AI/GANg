@@ -1,0 +1,9 @@
+training_mode,generated_nodes_available,generated_nodes_used,generated_nodes_filtered_out,filter_reason,label_strategy
+feature_noise,1000,1000,0,not filtered by GANg criteria,noisy_parent_label
+gan_conditional_target,1000,1000,0,not filtered by GANg criteria,conditional_target_bandgap_label
+gan_filtered,1000,500,500,validity/novelty/edge/uncertainty filter,valid_edge_novel_consistent_uncertainty_filtered_neighbor_label_q50_threshold_0.9075
+gan_generated,1000,1000,0,not filtered by GANg criteria,neighbor_averaged_pseudo_label
+gan_property_head,1000,1000,0,not filtered by GANg criteria,property_head_pseudo_label
+nearest_neighbor_interpolation,1000,1000,0,not filtered by GANg criteria,nearest_neighbor_interpolation_label
+random_synthetic,1000,1000,0,not filtered by GANg criteria,random_train_label
+real_only,0,0,0,not filtered by GANg criteria,real_labels_only

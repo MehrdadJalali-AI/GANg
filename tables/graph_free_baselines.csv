@@ -1,0 +1,8 @@
+model,target,test_mae,split_policy
+RandomForest,outputs.pbe.bandgap,0.44456729739999995,700/150/150 seed 42
+HistGradientBoosting,outputs.pbe.bandgap,0.47922311798498507,700/150/150 seed 42
+MLP,outputs.pbe.bandgap,0.5382798902801513,700/150/150 seed 42
+Ridge,outputs.pbe.bandgap,0.5590593756556194,700/150/150 seed 42
+GraphSAGE_real_only_GNN,outputs.pbe.bandgap,0.5998269200325013,held-out real QMOF test nodes
+GAT_real_only_GNN,outputs.pbe.bandgap,0.668193519115448,held-out real QMOF test nodes
+GCN_real_only_GNN,outputs.pbe.bandgap,0.6926444292068481,held-out real QMOF test nodes

@@ -1,0 +1,5 @@
+label_strategy,generated_node_count,filtered_node_count,MAE_mean,RMSE_mean,R2_mean,Spearman_mean,comment
+gan_generated,1000,1000,0.7085030476252238,0.9028087655703226,0.3321256597836812,0.6055755600800669,neighbor_averaged_pseudo_label
+gan_filtered,1000,500,0.6951110601425171,0.8877644618352254,0.354246175289154,0.624588893034974,valid_edge_novel_consistent_uncertainty_filtered_neighbor_label_q50_threshold_0.9075
+gan_property_head,1000,1000,0.7339950640996298,0.9381048520406088,0.2720257401466369,0.5917922600670038,property_head_pseudo_label
+gan_conditional_target,1000,1000,0.7295604785283407,0.9272490819295247,0.2947221279144287,0.592534868633139,conditional_target_bandgap_label

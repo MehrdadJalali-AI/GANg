@@ -1,0 +1,2 @@
+edges_before,edges_after,edge_reduction_percentage,connected_components_before,connected_components_after,largest_component_size_before,largest_component_size_after,average_degree_before,average_degree_after,runtime_seconds
+9751,4771,51.07168495538919,1,2,1000,988,19.502,9.542,1.3415191173553467

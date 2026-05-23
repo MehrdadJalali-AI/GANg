@@ -1,0 +1,18 @@
+{
+  "generated_node_id": "gen-52",
+  "descriptor_valid": true,
+  "edge_valid": true,
+  "duplicate": false,
+  "novelty_score": 0.29763925075531,
+  "top5_nearest_qmof_ids": "qmof-21760ea;qmof-83de5c7;qmof-4a1e9e7;qmof-83e8959;qmof-d8acb74",
+  "top5_similarity_scores": "0.7024;0.6648;0.6563;0.6369;0.6313",
+  "top1_qmof_id": "qmof-21760ea",
+  "top2_qmof_id": "qmof-83de5c7",
+  "top3_qmof_id": "qmof-4a1e9e7",
+  "top5_bandgap_mean": 1.8873682022094729,
+  "top5_bandgap_std": 0.5951685905456543,
+  "generated_degree": 15,
+  "edge_weight_mean": 0.6277029673258464,
+  "interpretation_comment": "This generated node is a MOF-like descriptor-space hypothesis located near qmof-21760ea, qmof-83de5c7, and qmof-4a1e9e7. It is not a decoded crystal structure and no CIF is claimed.",
+  "claim_boundary": "descriptor-space hypothesis, not generated CIF; no DFT, force-field relaxation, synthesis, or experimental validation"
+}

@@ -1,0 +1,2 @@
+generated_nodes_before_filtering,generated_nodes_retained,descriptor_valid_rate,edge_valid_rate,duplicate_rate,novelty_pass_rate,filtered_pass_rate,downstream_use_count,uncertainty_threshold
+1000,500,1.0,1.0,0.0,1.0,0.5,500,0.9074983298778534

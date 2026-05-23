@@ -1,0 +1,7 @@
+descriptor,available,missing_fraction
+info.natoms,True,0.0
+info.pld,True,0.0
+info.lcd,True,0.0
+info.density,True,0.0
+info.volume,True,0.0
+info.symmetry.spacegroup_number,True,0.0

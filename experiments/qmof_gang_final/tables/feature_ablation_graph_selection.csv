@@ -1,0 +1,6 @@
+feature_set,n_features,status,edges,connected_components,largest_component_size,average_degree,bandgap_homophily,average_clustering,nearest_neighbor_similarity_mean,chosen_for_final_graph
+composition_only,77,completed,9860,1,1000,19.72,0.43052738336713997,0.5419001108482724,0.934958279132843,False
+chemistry_role_only,23,completed,10178,1,1000,20.356,0.38995873452544705,0.46349820318451623,0.9510613083839417,False
+scalar_structure_only,6,completed,9873,1,1000,19.746,0.2835004557885141,0.49747234006446034,0.9841246008872986,False
+composition_plus_chemistry,100,completed,9954,1,1000,19.908,0.4483624673498091,0.4851389804920367,0.9209520220756531,False
+all_non_leaking_features,106,completed,9998,1,1000,19.996,0.4348869773954791,0.4623915300225086,0.8975598216056824,True

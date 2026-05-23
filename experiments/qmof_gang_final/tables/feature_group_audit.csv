@@ -1,0 +1,4 @@
+feature_group,num_features,missing_rate,used_in_similarity_graph,used_in_GAN,used_in_downstream,leakage_risk,comment
+chemistry_role,23,0.0,True,True,True,low,non-leaking descriptor group; target/output columns excluded
+composition,77,0.0,True,True,True,low,non-leaking descriptor group; target/output columns excluded
+scalar_metadata,6,0.0,True,True,True,low,non-leaking descriptor group; target/output columns excluded

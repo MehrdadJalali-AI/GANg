@@ -1,0 +1,2 @@
+generated_degree_mean,edge_weight_min,edge_weight_mean,edge_weight_max,cosine_consistency_mean,graph_connectivity_after_insertion,local_clustering_coefficient_proxy,edge_valid_rate
+15.0,0.23314084112644196,0.45955132201015947,0.7023607492446899,0.45955132201015947,1,,1.0

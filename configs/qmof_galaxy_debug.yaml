@@ -1,0 +1,32 @@
+dataset_name: QMOF
+sample_size: 100
+metadata_csv: data/raw/qmof.csv
+split_seed: 42
+train_ratio: 0.70
+val_ratio: 0.15
+test_ratio: 0.15
+target: outputs.pbe.bandgap
+node_feature_sets: [composition, scalar_descriptors]
+similarity:
+  metric: cosine
+  k_neighbors: 8
+  threshold: null
+sparsification:
+  enabled: true
+  method: mutual_knn
+  preserve_connectivity: true
+gan:
+  latent_dim: 32
+  epochs: 5
+  runtime_epochs: 5
+  batch_size: auto
+  generator_lr: 0.0005
+  discriminator_lr: 0.0005
+  gan_type: wgan_gp
+  gradient_penalty_weight: 2.0
+evaluation_seeds: [0, 1]
+generated_nodes_per_seed: 20
+downstream:
+  epochs: 8
+  runtime_epochs: 8
+  hidden_dim: 32

@@ -1,0 +1,8 @@
+manuscript_claim,value,source_csv,source_column,figure_or_table
+1000 QMOF nodes,1000,graph_summary_before_sparsification.csv,nodes,Results 1
+edges before sparsification,9998,graph_summary_before_sparsification.csv,edges,Results 1
+edges after sparsification,6651,final_sparsification_summary.csv,edges,Results 2
+feature-ablation graph selection,see table,feature_ablation_graph_selection.csv,chosen_for_final_graph,Methods
+descriptor-valid rate,1.000,generated_node_validity.csv,descriptor_valid_rate,Results 4
+duplicate rate,0.000,generated_node_novelty.csv,duplicate_rate,Results 4
+GraphSAGE downstream summary,see table,downstream_gnn_summary.csv,mae_mean,Results 6

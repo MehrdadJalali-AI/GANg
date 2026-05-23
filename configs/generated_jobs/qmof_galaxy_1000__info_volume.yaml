@@ -1,0 +1,42 @@
+dataset_name: QMOF
+sample_size: 1000
+metadata_csv: data/raw/qmof.csv
+split_seed: 42
+train_ratio: 0.7
+val_ratio: 0.15
+test_ratio: 0.15
+target: info_volume
+node_feature_sets:
+- composition
+- scalar_descriptors
+- optional_structural_descriptors
+- optional_text_or_embedding_descriptors
+similarity:
+  metric: cosine
+  k_neighbors: 15
+  threshold: null
+sparsification:
+  enabled: true
+  method: mutual_knn
+  preserve_connectivity: true
+gan:
+  latent_dim: 64
+  epochs: 200
+  runtime_epochs: 40
+  batch_size: auto
+  generator_lr: 0.0002
+  discriminator_lr: 0.0002
+  gan_type: wgan_gp
+  gradient_penalty_weight: 5.0
+evaluation_seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
+generated_nodes_per_seed: 200
+downstream:
+  epochs: 60
+  runtime_epochs: 30
+  hidden_dim: 64
+output_directory: experiments/qmof_gang_multitarget/qmof_galaxy_1000/info_volume

@@ -1,0 +1,10 @@
+target_key,column_in_derived_table,present_in_derived_1000_table,n_rows,missing_fraction,usable_for_multitarget_run
+outputs.pbe.bandgap,target_bandgap,True,1000,0.0,True
+outputs.pbe.cbm,,False,0,1.0,False
+outputs.pbe.vbm,,False,0,1.0,False
+target_bandgap,target_bandgap,True,1000,0.0,True
+info_pld,info_pld,True,1000,0.0,True
+info_lcd,info_lcd,True,1000,0.0,True
+info_density,info_density,True,1000,0.0,True
+info_volume,info_volume,True,1000,0.0,True
+info_natoms,info_natoms,True,1000,0.0,True

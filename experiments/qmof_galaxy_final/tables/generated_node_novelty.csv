@@ -1,0 +1,2 @@
+duplicate_rate,nearest_neighbor_distance_to_training_mean,too_close_to_training_rate,novelty_pass_rate,diversity_across_seeds
+0.0,0.46977087506651877,0.0,1.0,0.08224890025145695

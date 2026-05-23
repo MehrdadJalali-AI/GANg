@@ -1,0 +1,2 @@
+number_of_nodes,number_of_edges,average_degree,connected_components,largest_component_size,edge_weight_min,edge_weight_mean,edge_weight_max,bandgap_bin_homophily
+1000,9751,19.502,1,1000,0.09769086870970606,0.7515042269542267,0.9999972213681357,0.3367859706696749

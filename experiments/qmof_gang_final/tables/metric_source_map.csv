@@ -1,0 +1,46 @@
+manuscript_location,claim_text,numeric_value,source_csv,source_column,source_row_filter,figure_or_table
+Abstract; Results 2.1; Supplement S1,dataset size,1000,graph_summary_before_sparsification.csv,nodes,row 0,Text
+Figure 1; Results 2.1; Supplement S1,number of features,106,feature_audit.csv,used_in_similarity_graph,count true rows,Figure 1
+Figure 1; Abstract; Results 2.2; Supplement S3,edges before sparsification,9998,graph_summary_before_sparsification.csv,edges,row 0,Figure 1/Figure 2
+Figure 1; Abstract; Results 2.2; Supplement S4,edges after sparsification,6651,final_sparsification_summary.csv,edges,row 0,Figure 1/Figure 2
+Results 2.2; Supplement S4,edge reduction percent,33.4767,final_sparsification_summary.csv,edge_reduction_percent,row 0,Figure 2
+Results 2.2; Supplement S3,homophily before sparsification,0.434887,graph_summary_before_sparsification.csv,target_bandgap_homophily,row 0,Figure 2
+Results 2.2; Supplement S4,homophily after sparsification,0.450459,final_sparsification_summary.csv,target_bandgap_homophily,row 0,Figure 2
+Abstract; Results 2.4; Supplement S7,descriptor-valid rate,1,generated_node_validity.csv,descriptor_valid_rate,row 0,Figure 4
+Abstract; Results 2.4; Supplement S8,edge-valid rate,1,generated_edge_plausibility.csv,edge_valid_rate,row 0,Figure 4
+Abstract; Results 2.4; Supplement S9,duplicate rate,0,generated_node_novelty.csv,duplicate_rate,row 0,Figure 4
+Figure 1; Results 2.4; Supplement S9,non-duplicate rate,1,generated_node_novelty.csv,duplicate_rate,1 - row 0 duplicate_rate,Figure 1/Figure 4
+Abstract; Results 2.4; Supplement S9,novelty-pass rate,1,generated_node_novelty.csv,novelty_pass_rate,row 0,Figure 1/Figure 4
+Abstract; Results 2.4; Supplement S15,filtered-pass rate,0.5,filtering_summary.csv,filtered_pass_rate,row 0,Figure 4
+Results 2.5; Supplement S10,mean absolute descriptor shift,3.24353,distribution_alignment.csv,descriptor_mean_abs_shift,row 0,Figure 5
+Results 2.5; Supplement S10,Wasserstein proxy,0.0281527,distribution_alignment.csv,descriptor_wasserstein_proxy,row 0,Figure 5
+Results 2.5; Supplement S10,generated edge-weight mean,0.459551,distribution_alignment.csv,edge_weight_mean_generated,row 0,Figure 5
+Results 2.6; Supplement S11,nodes after generated insertion,2000,topology_impact.csv,nodes_after,row 0,Figure 7
+Results 2.6; Supplement S11,generated edges,15000,topology_impact.csv,generated_edges,row 0,Figure 7
+Results 2.6; Supplement S11,average degree after insertion,14.151,topology_impact.csv,average_degree_after_generated_insertion,row 0,Figure 7
+Results 2.7; Supplement S17,gen-52 top-5 neighbor bandgap mean,1.88737,examples/generated_node_example/generated_node_card.csv,top5_bandgap_mean,generated_node_id=gen-52,Figure 13
+Results 2.7; Supplement S17,gen-52 top-5 neighbor bandgap std,0.595169,examples/generated_node_example/generated_node_card.csv,top5_bandgap_std,generated_node_id=gen-52,Figure 13
+Results 2.7; Supplement S17,gen-52 novelty score,0.297639,examples/generated_node_example/generated_node_card.csv,novelty_score,generated_node_id=gen-52,Figure 13
+Results 2.7; Supplement S17,gen-52 generated degree,15,examples/generated_node_example/generated_node_card.csv,generated_degree,generated_node_id=gen-52,Figure 13
+Results 2.7; Supplement S17,gen-52 edge-weight mean,0.627703,examples/generated_node_example/generated_node_card.csv,edge_weight_mean,generated_node_id=gen-52,Figure 13
+Results 2.8; Supplement S12,GraphSAGE real_only MAE mean,0.599827,downstream_summary.csv,mae_mean,model=GraphSAGE; training_mode=real_only,Figure 8
+Results 2.8; Supplement S12,GraphSAGE real_only MAE std,0.043923,downstream_summary.csv,mae_std,model=GraphSAGE; training_mode=real_only,Figure 8
+Results 2.8; Supplement S12,GraphSAGE nearest_neighbor_interpolation MAE mean,0.615047,downstream_summary.csv,mae_mean,model=GraphSAGE; training_mode=nearest_neighbor_interpolation,Figure 8
+Results 2.8; Supplement S12,GraphSAGE nearest_neighbor_interpolation MAE std,0.0256791,downstream_summary.csv,mae_std,model=GraphSAGE; training_mode=nearest_neighbor_interpolation,Figure 8
+Results 2.8; Supplement S12,GraphSAGE best generated mode,gan-property-head,downstream_summary.csv,training_mode,model=GraphSAGE; minimum mae_mean among GANg modes,Figure 8
+Results 2.8; Supplement S12,GraphSAGE best generated MAE mean,0.630469,downstream_summary.csv,mae_mean,model=GraphSAGE; training_mode=gan_property_head,Figure 8
+Results 2.8; Supplement S12,GraphSAGE best generated MAE std,0.0148209,downstream_summary.csv,mae_std,model=GraphSAGE; training_mode=gan_property_head,Figure 8
+Results 2.8; Supplement S12,GAT real_only MAE mean,0.668194,downstream_summary.csv,mae_mean,model=GAT; training_mode=real_only,Figure 8
+Results 2.8; Supplement S12,GAT real_only MAE std,0.012,downstream_summary.csv,mae_std,model=GAT; training_mode=real_only,Figure 8
+Results 2.8; Supplement S12,GAT nearest_neighbor_interpolation MAE mean,0.691109,downstream_summary.csv,mae_mean,model=GAT; training_mode=nearest_neighbor_interpolation,Figure 8
+Results 2.8; Supplement S12,GAT nearest_neighbor_interpolation MAE std,0.0202079,downstream_summary.csv,mae_std,model=GAT; training_mode=nearest_neighbor_interpolation,Figure 8
+Results 2.8; Supplement S12,GAT best generated mode,gan-filtered,downstream_summary.csv,training_mode,model=GAT; minimum mae_mean among GANg modes,Figure 8
+Results 2.8; Supplement S12,GAT best generated MAE mean,0.724237,downstream_summary.csv,mae_mean,model=GAT; training_mode=gan_filtered,Figure 8
+Results 2.8; Supplement S12,GAT best generated MAE std,0.0184502,downstream_summary.csv,mae_std,model=GAT; training_mode=gan_filtered,Figure 8
+Results 2.8; Supplement S12,GCN real_only MAE mean,0.692644,downstream_summary.csv,mae_mean,model=GCN; training_mode=real_only,Figure 8
+Results 2.8; Supplement S12,GCN real_only MAE std,0.0101552,downstream_summary.csv,mae_std,model=GCN; training_mode=real_only,Figure 8
+Results 2.8; Supplement S12,GCN nearest_neighbor_interpolation MAE mean,0.754237,downstream_summary.csv,mae_mean,model=GCN; training_mode=nearest_neighbor_interpolation,Figure 8
+Results 2.8; Supplement S12,GCN nearest_neighbor_interpolation MAE std,0.0102225,downstream_summary.csv,mae_std,model=GCN; training_mode=nearest_neighbor_interpolation,Figure 8
+Results 2.8; Supplement S12,GCN best generated mode,gan-property-head,downstream_summary.csv,training_mode,model=GCN; minimum mae_mean among GANg modes,Figure 8
+Results 2.8; Supplement S12,GCN best generated MAE mean,0.71956,downstream_summary.csv,mae_mean,model=GCN; training_mode=gan_property_head,Figure 8
+Results 2.8; Supplement S12,GCN best generated MAE std,0.012196,downstream_summary.csv,mae_std,model=GCN; training_mode=gan_property_head,Figure 8

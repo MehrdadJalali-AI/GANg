@@ -1,0 +1,3 @@
+generator,descriptor_valid_rate,edge_valid_rate,duplicate_rate,novelty_pass_rate,note
+GANg WGAN-GP,1.0,1.0,0.0,1.0,locked GANg export
+Gaussian noise / random synthetic / NN interpolation,,,,,control modes evaluated downstream; not full generator validity rerun

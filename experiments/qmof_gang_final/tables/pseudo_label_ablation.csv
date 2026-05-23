@@ -1,0 +1,5 @@
+label_strategy,status,mean_mae_across_models,comment
+gan_generated,completed,0.7085030476252238,Held-out test set contains only real QMOF nodes.
+gan_filtered,completed,0.6951110601425171,Held-out test set contains only real QMOF nodes.
+gan_property_head,completed,0.7339950640996298,Held-out test set contains only real QMOF nodes.
+gan_conditional_target,completed,0.7295604785283407,Held-out test set contains only real QMOF nodes.
