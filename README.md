@@ -1,5 +1,10 @@
 # GANg: Descriptor-Space Graph-Node Synthesis Reveals a Validity–Utility Gap in MOF Similarity Networks
-
+<p align="center">
+  <img 
+    src="GANg.jpg" 
+    alt="GANg conceptual artwork: graph-node synthesis in MOF similarity networks" 
+    width="90%">
+</p>
 GANg is a transparent descriptor-space graph-node synthesis framework for MOF similarity networks. The case study uses a QMOF-derived MOF similarity network: one MOF is one node, edges are descriptor-space similarities, and generated nodes are MOF-like descriptor-space hypotheses.
 
 Generated nodes are not automatically new MOFs, not DFT-validated, not force-field-relaxed, not synthesis-ready, and not experimentally validated.
