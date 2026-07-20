@@ -1,0 +1,2 @@
+nodes,edges,average_degree,min_degree,median_degree,max_degree,connected_components,largest_component_size,edge_weight_min,edge_weight_mean,edge_weight_max,target_bandgap_homophily,average_clustering_coefficient,chosen_method,chosen_setting,edges_before,edge_reduction_percent
+5000,41909,16.7636,12,15.0,44,5,4923,0.038655973970890045,0.8579047697175647,0.9999997615814209,0.478417523682264,0.4771086624762228,top-k,k=12,51906,19.259815820907022

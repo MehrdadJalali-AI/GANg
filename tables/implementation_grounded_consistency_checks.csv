@@ -1,0 +1,6 @@
+check,status
+small edge reduction recomputed,PASS
+large edge reduction recomputed,PASS
+validation-selected delta MAE equals selected minus real-only,PASS
+validation-selected mode recorded for every downstream row,PASS
+all six descriptor generators present,PASS

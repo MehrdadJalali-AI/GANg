@@ -1,0 +1,2 @@
+nodes,edges,average_degree,min_degree,median_degree,max_degree,connected_components,largest_component_size,edge_weight_min,edge_weight_mean,edge_weight_max,target_bandgap_homophily,average_clustering_coefficient,train_count,val_count,test_count
+5000,51906,20.7624,15,19.0,53,3,4965,0.03769571706652641,0.844435518633119,0.9999997615814209,0.47065849805417487,0.4874986700700214,3500,750,750

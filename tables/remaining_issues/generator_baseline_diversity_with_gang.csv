@@ -1,0 +1,7 @@
+generator,diversity_score,duplicate_rate,novelty_pass_rate
+gaussian_noise,0.0086401310395896,0.071,0.0
+nearest_neighbor_interpolation,0.0034662790866775,0.003,0.0
+kde_bootstrap,0.0487022982333259,0.0,0.128
+gmm,0.0277576255567531,0.0,0.111
+vae,0.0010487167300157,0.0,0.0
+GANg,0.0006354979705065489,0.0,0.013

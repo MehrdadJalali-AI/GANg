@@ -1,0 +1,107 @@
+feature_name,category,definition,used_in_similarity_graph,used_in_gan_training,used_in_downstream_gnn
+frac_H,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Li,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Be,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_B,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_C,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_N,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_O,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_F,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Na,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Mg,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Al,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Si,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_P,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_S,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Cl,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_K,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ca,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Sc,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ti,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_V,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Cr,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Mn,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Fe,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Co,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ni,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Cu,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Zn,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ga,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ge,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_As,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Se,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Br,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Rb,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Sr,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Y,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Zr,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Nb,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Mo,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ru,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Rh,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Pd,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ag,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Cd,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_In,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Sn,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Sb,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Te,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_I,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Cs,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ba,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_La,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ce,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Pr,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Nd,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Sm,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Eu,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Gd,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Tb,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Dy,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ho,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Er,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Tm,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Yb,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Lu,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Hf,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ta,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_W,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Re,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Os,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Ir,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Pt,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Au,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Hg,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Pb,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+frac_Bi,Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,True,True,True
+atom_count_formula,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+n_unique_elements,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+metal_count,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+metal_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+has_metal,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+transition_metal_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+rare_earth_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+alkali_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+alkaline_earth_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+halogen_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+chalcogen_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+organic_fraction_CHNO,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+organic_element_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+heteroatom_fraction_NOFPSClBrI,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+carbon_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+hydrogen_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+nitrogen_oxygen_fraction,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+c_to_h_ratio,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+metal_to_organic_ratio,Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,True,True,True
+atomic_number_mean,Atomic-property statistics,"Formula-derived aggregate atomic-number, atomic-mass, and electronegativity statistics.",True,True,True
+atomic_number_range,Atomic-property statistics,"Formula-derived aggregate atomic-number, atomic-mass, and electronegativity statistics.",True,True,True
+atomic_mass_mean,Atomic-property statistics,"Formula-derived aggregate atomic-number, atomic-mass, and electronegativity statistics.",True,True,True
+atomic_mass_range,Atomic-property statistics,"Formula-derived aggregate atomic-number, atomic-mass, and electronegativity statistics.",True,True,True
+electronegativity_mean,Atomic-property statistics,"Formula-derived aggregate atomic-number, atomic-mass, and electronegativity statistics.",True,True,True
+electronegativity_range,Atomic-property statistics,"Formula-derived aggregate atomic-number, atomic-mass, and electronegativity statistics.",True,True,True
+info_natoms,Scalar QMOF metadata,Available scalar QMOF metadata descriptors used without target/output columns.,True,True,True
+info_pld,Scalar QMOF metadata,Available scalar QMOF metadata descriptors used without target/output columns.,True,True,True
+info_lcd,Scalar QMOF metadata,Available scalar QMOF metadata descriptors used without target/output columns.,True,True,True
+info_density,Scalar QMOF metadata,Available scalar QMOF metadata descriptors used without target/output columns.,True,True,True
+info_volume,Scalar QMOF metadata,Available scalar QMOF metadata descriptors used without target/output columns.,True,True,True
+info_symmetry_spacegroup_number,Scalar QMOF metadata,Available scalar QMOF metadata descriptors used without target/output columns.,True,True,True

@@ -1,0 +1,5 @@
+category,definition,count,representative_examples,graph,GANg,GNN
+Atomic-property statistics,"Formula-derived aggregate atomic-number, atomic-mass, and electronegativity statistics.",6,"atomic_number_mean, atomic_number_range, atomic_mass_mean, atomic_mass_range, electronegativity_mean, electronegativity_range",yes,yes,yes
+Chemistry-role and composition summaries,Formula-derived chemistry-role indicators and aggregate elemental fractions.,19,"atom_count_formula, n_unique_elements, metal_count, metal_fraction, has_metal, transition_metal_fraction",yes,yes,yes
+Elemental composition fractions,Fraction of atoms assigned to each element in the reduced/formula-derived composition representation.,75,"frac_H, frac_Li, frac_Be, frac_B, frac_C, frac_N",yes,yes,yes
+Scalar QMOF metadata,Available scalar QMOF metadata descriptors used without target/output columns.,6,"info_natoms, info_pld, info_lcd, info_density, info_volume, info_symmetry_spacegroup_number",yes,yes,yes
