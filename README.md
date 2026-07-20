@@ -4,7 +4,7 @@
 
 <p align="center">
   <img
-    src="GAN2.png"
+    src="GAN2.jpg"
     alt="GANg conceptual artwork: descriptor-space graph-node synthesis in MOF similarity networks"
     width="90%">
 </p>
