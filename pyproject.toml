@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gang-mof"
+dynamic = ["version"]
+description = "GANg: target-conditioned generation of auditable graph nodes for metal-organic framework similarity networks"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+  {name = "Mehrdad Jalali", email = "mehrdad.jalali@srh.de"},
+  {name = "Andre Orth"},
+  {name = "Markus Reischl", email = "markus.reischl@kit.edu"},
+]
+keywords = ["generative adversarial network", "WGAN-GP", "metal-organic frameworks", "MOF", "materials informatics",
+            "graph machine learning", "data augmentation", "synthetic data"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Chemistry",
+]
+dependencies = ["numpy>=1.22", "pandas>=1.4", "scikit-learn>=1.1", "torch>=1.13"]
+
+[project.optional-dependencies]
+graph = ["networkx>=2.8"]
+dev = ["pytest>=7", "networkx>=2.8", "build"]
+
+[project.urls]
+Homepage = "https://github.com/MehrdadJalali-AI/GANg"
+Source = "https://github.com/MehrdadJalali-AI/GANg"
+Issues = "https://github.com/MehrdadJalali-AI/GANg/issues"
+
+[project.scripts]
+gang-mof = "gang_mof.cli:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "gang_mof._version.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gang_mof = ["datasets/*.csv.gz"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

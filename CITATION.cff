@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use GANg or gang-mof, please cite the article below."
+title: "gang-mof: GANg, target-conditioned generation of auditable graph nodes for MOF similarity networks"
+type: software
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/MehrdadJalali-AI/GANg"
+authors:
+  - family-names: Jalali
+    given-names: Mehrdad
+    affiliation: "SRH University of Applied Sciences Heidelberg"
+  - family-names: Orth
+    given-names: Andre
+    affiliation: "Karlsruhe Institute of Technology"
+  - family-names: Reischl
+    given-names: Markus
+    affiliation: "Karlsruhe Institute of Technology"
+preferred-citation:
+  type: article
+  title: "GANg: A Target-Conditioned Generative Adversarial Network for Node Synthesis in Metal–Organic Framework Similarity Graphs"
+  journal: "Advanced Intelligent Systems"
+  year: 2026
+  authors:
+    - family-names: Jalali
+      given-names: Mehrdad
+    - family-names: Orth
+      given-names: Andre
+    - family-names: Reischl
+      given-names: Markus
