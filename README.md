@@ -7,7 +7,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](pyproject.toml)
 
 <p align="center">
-  <img src="GAN2.jpg" alt="GANg: descriptor-space graph-node synthesis in MOF similarity networks" width="80%">
+  <img src="docs/figures/gang_overview.png" alt="GANg overview: real MOFs are featurized into 106 descriptors; a constraint-aware conditional WGAN-GP generates an independent descriptor core that an exact featurizer expands to all 106 descriptors; generated nodes are attached to real MOFs by cosine kNN and every node is audited" width="100%">
 </p>
 
 `gang-mof` is the Python package for **GANg** (Jalali, Orth & Reischl, *Advanced Intelligent Systems*, 2026).
