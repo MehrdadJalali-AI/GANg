@@ -10,6 +10,8 @@
   <img src="docs/figures/gang_overview.png" alt="GANg overview: real MOFs are featurized into 106 descriptors; a constraint-aware conditional WGAN-GP generates an independent descriptor core that an exact featurizer expands to all 106 descriptors; generated nodes are attached to real MOFs by cosine kNN and every node is audited" width="100%">
 </p>
 
+<p align="center"><img src="docs/figures/gang_gan.gif" alt="Animation: a generator creates a node, a critic compares it with real nodes, both train until generated nodes look real, then new nodes are attached to the MOF similarity graph" width="90%"></p>
+
 `gang-mof` is the Python package for **GANg** (Jalali, Orth & Reischl, *Advanced Intelligent Systems*, 2026).
 Give it a table of real MOFs; it trains a constraint-aware conditional WGAN-GP and returns synthetic
 MOF descriptor vectors, their similarity edges to real MOFs, and a per-node audit.
