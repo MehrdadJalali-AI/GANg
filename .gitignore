@@ -8,3 +8,4 @@ dist/
 gang_model/
 gang_results/
 examples/outputs/
+.DS_Store
