@@ -1,0 +1,268 @@
+"""Networks and the constraint-aware descriptor core (internal).
+
+Ported from the implementation used in the GANg paper (``gang_v2.py``); behaviour is kept
+identical so that the package reproduces the published diagnostics.
+"""
+from __future__ import annotations
+
+import numpy as np
+import torch
+from torch import nn
+
+from .chemistry import (ALKALI, ALKALINE, AMU_A3_TO_G_CM3, ATOMIC_MASS, ATOMIC_NUMBER, CHALCOGENS, ELECTRONEGATIVITY,
+                        ELEMENTS, HALOGENS, METALS, ORGANIC, RARE_EARTHS, TRANSITION_METALS, composition_features)
+
+
+# ---------------------------------------------------------------------------- scaling
+class Standardizer:
+    """Column standardization fitted on training rows only."""
+
+    def __init__(self, mean: np.ndarray, scale: np.ndarray):
+        self.mean, self.scale = np.asarray(mean, np.float64), np.asarray(scale, np.float64)
+
+    @classmethod
+    def fit(cls, X: np.ndarray) -> "Standardizer":
+        X = np.asarray(X, np.float64)
+        sd = X.std(0)
+        return cls(X.mean(0), np.where(sd > 1e-12, sd, 1.0))
+
+    def transform(self, X):
+        return ((np.asarray(X, np.float64) - self.mean) / self.scale).astype(np.float32)
+
+    def inverse(self, Z):
+        return np.asarray(Z, np.float64) * self.scale + self.mean
+
+
+def cosine_normalize(Z: np.ndarray) -> np.ndarray:
+    return Z / np.maximum(np.linalg.norm(Z, axis=1, keepdims=True), 1e-12)
+
+
+# ---------------------------------------------------------------------------- layers
+def sparsemax(logits: torch.Tensor) -> torch.Tensor:
+    """Martins & Astudillo (2016): Euclidean projection onto the simplex with exact zeros."""
+    z, _ = torch.sort(logits, dim=1, descending=True)
+    k = torch.arange(1, logits.size(1) + 1, dtype=logits.dtype, device=logits.device)
+    cssv = z.cumsum(1) - 1
+    k_z = (z * k > cssv).sum(1, keepdim=True)
+    tau = cssv.gather(1, k_z - 1) / k_z.to(logits.dtype)
+    return torch.clamp(logits - tau, min=0)
+
+
+def gradient_penalty(critic, real, fake, cond, weight: float) -> torch.Tensor:
+    alpha = torch.rand(real.size(0), 1, device=real.device)
+    interp = (alpha * real + (1 - alpha) * fake).requires_grad_(True)
+    grad = torch.autograd.grad(critic(interp, cond).sum(), interp, create_graph=True)[0]
+    return weight * ((grad.norm(dim=1) - 1) ** 2).mean()
+
+
+class ConstrainedGenerator(nn.Module):
+    """Emits the independent core: sparsemax composition + continuous cell scalars."""
+
+    def __init__(self, latent: int, n_elements: int, n_cont: int, hidden: int = 256, element_mask=None):
+        super().__init__()
+        mask = torch.ones(n_elements, dtype=torch.bool) if element_mask is None else element_mask
+        self.register_buffer("element_mask", mask)
+        self.trunk = nn.Sequential(nn.Linear(latent + 1, hidden), nn.LeakyReLU(.2), nn.Linear(hidden, hidden),
+                                   nn.LeakyReLU(.2), nn.Linear(hidden, hidden), nn.LeakyReLU(.2))
+        self.elements, self.cont = nn.Linear(hidden, n_elements), nn.Linear(hidden, n_cont)
+
+    def forward(self, z, c):
+        h = self.trunk(torch.cat([z, c.view(-1, 1)], 1))
+        logits = self.elements(h).masked_fill(~self.element_mask, -1e4)
+        return sparsemax(logits), self.cont(h)
+
+
+class FullGenerator(nn.Module):
+    """Baseline generator: emits the full standardized descriptor vector."""
+
+    def __init__(self, latent: int, dim: int, hidden: int = 256):
+        super().__init__()
+        self.net = nn.Sequential(nn.Linear(latent + 1, hidden), nn.LeakyReLU(.2), nn.Linear(hidden, hidden),
+                                 nn.LeakyReLU(.2), nn.Linear(hidden, dim))
+
+    def forward(self, z, c):
+        return self.net(torch.cat([z, c.view(-1, 1)], 1))
+
+
+class Critic(nn.Module):
+    """Conditional WGAN critic with an optional minibatch-standard-deviation feature."""
+
+    def __init__(self, dim: int, hidden: int = 256, minibatch_std: bool = False):
+        super().__init__()
+        self.minibatch_std = minibatch_std
+        self.body = nn.Sequential(nn.Linear(dim + 1, hidden), nn.LeakyReLU(.2), nn.Linear(hidden, hidden), nn.LeakyReLU(.2))
+        self.head = nn.Sequential(nn.Linear(hidden + int(minibatch_std), hidden), nn.LeakyReLU(.2), nn.Linear(hidden, 1))
+
+    def forward(self, x, c):
+        h = self.body(torch.cat([x, c.view(-1, 1)], 1))
+        if self.minibatch_std:
+            h = torch.cat([h, h.std(0, unbiased=False).mean().expand(len(h), 1)], 1)
+        return self.head(h).view(-1)
+
+
+# ---------------------------------------------------------------------------- core space
+_GROUPS = [("metal", METALS), ("transition", TRANSITION_METALS), ("rare_earth", RARE_EARTHS), ("alkali", ALKALI),
+           ("alkaline", ALKALINE), ("halogen", HALOGENS), ("chalcogen", CHALCOGENS), ("organic", ORGANIC),
+           ("chno", {"C", "H", "N", "O"}), ("hetero", {"N", "O", "F", "P", "S", "Cl", "Br", "I"}), ("no", {"N", "O"})]
+
+
+class CoreSpace:
+    """Maps the 106 QMOF descriptors <-> the independent core generated by GANg.
+
+    Core: 75 elemental fractions (simplex) and six continuous scalars
+    (log formula atoms, log cell atoms, log volume, log LCD, logit(PLD/LCD), space group).
+    The critic sees the full 106-d training-standardized descriptor, rebuilt differentiably
+    from the core, plus the z-scored continuous core.
+    """
+
+    STATE_KEYS = ["cont_mean", "cont_sd", "bounds", "z_max", "spacegroups", "element_mask"]
+
+    def __init__(self, names: list[str], scaler: Standardizer, state: dict):
+        self.names = list(names)
+        self.ix = {n: i for i, n in enumerate(self.names)}
+        self.frac_idx = [self.ix[f"frac_{e}"] for e in ELEMENTS]
+        self.cont_mean = np.asarray(state["cont_mean"], np.float64)
+        self.cont_sd = np.asarray(state["cont_sd"], np.float64)
+        self.bounds = {k: tuple(v) for k, v in state["bounds"].items()}
+        self.z_max = int(state["z_max"])
+        self.spacegroups = np.asarray(state["spacegroups"], np.float64)
+        self.element_mask = torch.tensor(np.asarray(state["element_mask"], bool))
+        self.n_elements, self.n_cont = len(ELEMENTS), len(self.cont_mean)
+        self.dim = len(self.names) + self.n_cont
+        f32 = lambda a: torch.tensor(np.asarray(a, dtype=np.float64), dtype=torch.float32)
+        self.t_cont_mean, self.t_cont_sd = f32(self.cont_mean), f32(self.cont_sd)
+        self.t_mean, self.t_scale = f32(scaler.mean), f32(scaler.scale)
+        self.groups = {name: f32([e in group for e in ELEMENTS]) for name, group in _GROUPS}
+        self.element_ix = {e: i for i, e in enumerate(ELEMENTS)}
+        self.props = {"atomic_number": f32([ATOMIC_NUMBER[e] for e in ELEMENTS]),
+                      "atomic_mass": f32([ATOMIC_MASS[e] for e in ELEMENTS]),
+                      "electronegativity": f32([ELECTRONEGATIVITY[e] for e in ELEMENTS])}
+
+    # -- construction / persistence
+    @classmethod
+    def fit(cls, raw_train: np.ndarray, names: list[str], scaler: Standardizer) -> "CoreSpace":
+        ix = {n: i for i, n in enumerate(names)}
+        col = lambda n: raw_train[:, ix[n]].astype(np.float64)
+        cont = cls._continuous_static(raw_train, ix)
+        frac_idx = [ix[f"frac_{e}"] for e in ELEMENTS]
+        state = {
+            "cont_mean": cont.mean(0).tolist(),
+            "cont_sd": np.maximum(cont.std(0), 1e-6).tolist(),
+            "bounds": {n: [float(col(n).min()), float(col(n).max())] for n in ["atom_count_formula", "info_volume", "info_lcd"]},
+            "z_max": int(np.round(col("info_natoms") / col("atom_count_formula")).max()),
+            "spacegroups": np.unique(col("info_symmetry_spacegroup_number")).tolist(),
+            # Elements absent from the training rows cannot be generated (logit mask).
+            "element_mask": (raw_train[:, frac_idx].max(0) > 0).tolist(),
+        }
+        return cls(names, scaler, state)
+
+    def state(self) -> dict:
+        return {"cont_mean": self.cont_mean.tolist(), "cont_sd": self.cont_sd.tolist(),
+                "bounds": {k: list(v) for k, v in self.bounds.items()}, "z_max": self.z_max,
+                "spacegroups": self.spacegroups.tolist(), "element_mask": self.element_mask.numpy().tolist()}
+
+    @staticmethod
+    def _continuous_static(raw, ix):
+        col = lambda n: raw[:, ix[n]].astype(np.float64)
+        ratio = np.clip(col("info_pld") / col("info_lcd"), 1e-3, 1 - 1e-3)
+        return np.stack([np.log(col("atom_count_formula")), np.log(col("info_natoms")), np.log(col("info_volume")),
+                         np.log(col("info_lcd")), np.log(ratio / (1 - ratio)), col("info_symmetry_spacegroup_number")], 1)
+
+    # -- encoders
+    def core(self, raw: np.ndarray):
+        frac = raw[:, self.frac_idx].astype(np.float64)
+        frac = frac / np.maximum(frac.sum(1, keepdims=True), 1e-12)
+        cont = (self._continuous_static(raw, self.ix) - self.cont_mean) / self.cont_sd
+        return torch.tensor(frac, dtype=torch.float32), torch.tensor(cont, dtype=torch.float32)
+
+    def encode(self, raw: np.ndarray) -> torch.Tensor:
+        return self.critic_input(*self.core(raw))
+
+    def featurize(self, frac: torch.Tensor, cont_z: torch.Tensor) -> torch.Tensor:
+        """Differentiable torch mirror of the real-data featurizer (unstandardized output)."""
+        cont = cont_z * self.t_cont_sd + self.t_cont_mean
+        total, natoms, volume, lcd = (torch.exp(cont[:, i]) for i in range(4))
+        g = {k: (frac * m).sum(1) for k, m in self.groups.items()}
+        el = lambda e: frac[:, self.element_ix[e]]
+        present = frac > 0
+        f = {f"frac_{e}": frac[:, i] for i, e in enumerate(ELEMENTS)}
+        f.update({"atom_count_formula": total, "n_unique_elements": present.sum(1).float(),
+                  "metal_count": g["metal"] * total, "metal_fraction": g["metal"], "has_metal": (g["metal"] > 0).float(),
+                  "transition_metal_fraction": g["transition"], "rare_earth_fraction": g["rare_earth"],
+                  "alkali_fraction": g["alkali"], "alkaline_earth_fraction": g["alkaline"],
+                  "halogen_fraction": g["halogen"], "chalcogen_fraction": g["chalcogen"],
+                  "organic_fraction_CHNO": g["chno"], "organic_element_fraction": g["organic"],
+                  "heteroatom_fraction_NOFPSClBrI": g["hetero"], "carbon_fraction": el("C"),
+                  "hydrogen_fraction": el("H"), "nitrogen_oxygen_fraction": g["no"],
+                  "c_to_h_ratio": el("C") * total / torch.clamp_min(el("H") * total, 1.0),
+                  "metal_to_organic_ratio": g["metal"] * total / torch.clamp_min(g["organic"] * total, 1.0)})
+        for name, prop in self.props.items():
+            f[f"{name}_mean"] = (frac * prop).sum(1)
+            hi = torch.where(present, prop.expand_as(frac), torch.full_like(frac, -1e9)).max(1).values
+            lo = torch.where(present, prop.expand_as(frac), torch.full_like(frac, 1e9)).min(1).values
+            f[f"{name}_range"] = hi - lo
+        f.update({"info_natoms": natoms, "info_volume": volume, "info_lcd": lcd,
+                  "info_pld": lcd * torch.sigmoid(cont[:, 4]),
+                  "info_density": natoms * f["atomic_mass_mean"] * AMU_A3_TO_G_CM3 / volume,
+                  "info_symmetry_spacegroup_number": cont[:, 5]})
+        return torch.stack([f[n] for n in self.names], 1)
+
+    def critic_input(self, frac: torch.Tensor, cont: torch.Tensor) -> torch.Tensor:
+        standardized = (self.featurize(frac, cont) - self.t_mean) / self.t_scale
+        return torch.cat([standardized, cont], 1)
+
+    # -- decoder used at sampling time
+    def to_descriptors(self, frac: np.ndarray, cont_z: np.ndarray):
+        """Core -> full descriptors via the exact real-data featurizer.
+
+        Rounds to an integer formula, snaps Z = cell atoms / formula atoms to an integer and the
+        space group to a training value, and recomputes density, so every relation holds exactly.
+        Returns ``(descriptors, formulas, repair_stats)``.
+        """
+        cont = cont_z.astype(np.float64) * self.cont_sd + self.cont_mean
+        lo, hi = self.bounds["atom_count_formula"]
+        total = np.clip(np.round(np.exp(cont[:, 0])), max(lo, 1), hi)
+        vlo, vhi = self.bounds["info_volume"]
+        llo, lhi = self.bounds["info_lcd"]
+        rows, formulas = [], []
+        stats = {"count_rounding_l1": [], "elements_dropped": [], "z_rounding_abs": [], "continuous_clipped": []}
+        for i in range(len(frac)):
+            counts = np.round(frac[i] * total[i])
+            if counts.sum() == 0:
+                counts[np.argmax(frac[i])] = 1
+            t = counts.sum()
+            stats["count_rounding_l1"].append(np.abs(counts / t - frac[i]).sum())
+            stats["elements_dropped"].append(int(((frac[i] > 0) & (counts == 0)).sum()))
+            formula = "".join(f"{e}{int(c)}" for e, c in zip(ELEMENTS, counts) if c > 0)
+            feat = composition_features(formula)
+            z_cont = np.exp(cont[i, 1]) / t
+            z = int(np.clip(np.round(z_cont), 1, self.z_max))
+            stats["z_rounding_abs"].append(abs(z_cont - z))
+            volume, lcd = np.exp(cont[i, 2]), np.exp(cont[i, 3])
+            stats["continuous_clipped"].append(float(not (vlo <= volume <= vhi and llo <= lcd <= lhi)))
+            volume, lcd = np.clip(volume, vlo, vhi), np.clip(lcd, llo, lhi)
+            pld = lcd / (1 + np.exp(-cont[i, 4]))
+            spacegroup = self.spacegroups[np.argmin(np.abs(self.spacegroups - cont[i, 5]))]
+            mass = sum(ATOMIC_MASS[e] * c for e, c in zip(ELEMENTS, counts) if c > 0)
+            feat.update({"info_natoms": z * t, "info_pld": pld, "info_lcd": lcd, "info_volume": volume,
+                         "info_density": z * mass * AMU_A3_TO_G_CM3 / volume,
+                         "info_symmetry_spacegroup_number": spacegroup})
+            rows.append([feat[n] for n in self.names])
+            formulas.append(formula)
+        return np.asarray(rows, dtype=np.float64), formulas, {k: float(np.mean(v)) for k, v in stats.items()}
+
+
+# ---------------------------------------------------------------------------- metrics
+def prdc(real: np.ndarray, fake: np.ndarray, k: int = 5) -> dict:
+    """Naeem et al. (2020) precision, recall, density and coverage (Euclidean, k-NN radii)."""
+    from sklearn.neighbors import NearestNeighbors
+
+    real, fake = np.asarray(real, np.float64), np.asarray(fake, np.float64)
+    k_r, k_f = min(k, len(real) - 1), min(k, len(fake) - 1)
+    real_r = NearestNeighbors(n_neighbors=k_r + 1).fit(real).kneighbors(real)[0][:, -1]
+    fake_r = NearestNeighbors(n_neighbors=k_f + 1).fit(fake).kneighbors(fake)[0][:, -1]
+    d = np.sqrt(np.maximum(((real[:, None, :] - fake[None, :, :]) ** 2).sum(-1), 0))
+    return {"precision": float((d < real_r[:, None]).any(0).mean()),
+            "recall": float((d < fake_r[None, :]).any(1).mean()),
+            "density": float((d < real_r[:, None]).sum(0).mean() / k_r),
+            "coverage": float((d.min(1) < real_r).mean())}
